@@ -1,0 +1,120 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="bno08x_imu">
+
+  <!-- copied (and adapted) from bno055_hardware_interface (github.com/adityakamath) -->
+
+  <!-- Arguments -->
+  <xacro:arg name="i2c_bus"              default="1"/>
+  <xacro:arg name="i2c_addr"             default="4A"/>    <!-- hex, no 0x prefix: 4A = 0x4A -->
+  <xacro:arg name="axis_remap"           default="East-North-Up"/>  <!-- See BNO08X datasheet Table 4-3  page 41 -->
+  <xacro:arg name="imu_rate"             default="100"/>   <!-- See BNO08X datasheet Figure 6-16 page 50-->
+  <xacro:arg name="enable_magnetometer"  default="false"/>
+  <xacro:arg name="magnetometer_rate"    default="100"/>   <!-- See BNO08X datasheet Figure 6-16 page 50-->
+  <xacro:arg name="enable_mock_mode"     default="false"/>
+  <xacro:arg name="enable_mock_mode"     default="false"/>
+
+  <xacro:arg name="orientation_covariance_unreliable" default="0.0375"/>
+  <xacro:arg name="orientation_covariance_low"        default="0.0075"/>
+  <xacro:arg name="orientation_covariance_medium"     default="0.0015"/>
+  <xacro:arg name="orientation_covariance_high"       default="0.00030"/>
+
+  <xacro:arg name="angular_velocity_covariance_unreliable" default="0.0625"/>
+  <xacro:arg name="angular_velocity_covariance_low"        default="0.0125"/>
+  <xacro:arg name="angular_velocity_covariance_medium"     default="0.0025"/>
+  <xacro:arg name="angular_velocity_covariance_high"       default="0.00050"/>
+
+  <xacro:arg name="linear_acceleration_covariance_unreliable" default="5.0000"/>
+  <xacro:arg name="linear_acceleration_covariance_low"        default="1.0000"/>
+  <xacro:arg name="linear_acceleration_covariance_medium"     default="0.2000"/>
+  <xacro:arg name="linear_acceleration_covariance_high"       default="0.0400"/>
+
+  <xacro:arg name="magnetometer_covariance_unreliable" default="0.00000000125"/>
+  <xacro:arg name="magnetometer_covariance_low"        default="0.00000000025"/>
+  <xacro:arg name="magnetometer_covariance_medium"     default="0.000000000050"/>
+  <xacro:arg name="magnetometer_covariance_high"       default="0.000000000010"/>
+
+  <!-- Robot links -->
+  <link name="base_link"/>
+
+  <link name="imu_link"/>
+
+  <link name="imu_frame"/>
+
+  <!-- base_link -> imu_link (adjust origin for your mounting position) -->
+  <joint name="imu_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="imu_link"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+  </joint>
+
+  <!-- imu_link -> imu_frame (zero offset; imu_frame is the sensor measurement frame) -->
+  <joint name="imu_frame_joint" type="fixed">
+    <parent link="imu_link"/>
+    <child link="imu_frame"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+  </joint>
+
+  <!-- ros2_control sensor block -->
+  <ros2_control name="bno08x_sensor" type="sensor">
+    <hardware>
+      <plugin>bno08x_covariance_hardware_interface/BNO08XCovarianceHardwareInterface</plugin>
+
+      <!-- I2C Parameters -->
+      <param name="i2c_bus">$(arg i2c_bus)</param>    <!-- I2C bus (default: 1 >> /dev/i2c-1) -->
+      <param name="i2c_addr">$(arg i2c_addr)</param>  <!-- I2C address in hex, no 0x prefix (default: 28 = 0x28) -->
+
+      <!-- Sensor Configuration -->
+      <param name="axis_remap">$(arg axis_remap)</param>     <!-- Axis placement config -->
+      <param name="imu_rate">$(arg imu_rate)</param>
+      <param name="enable_magnetometer">$(arg enable_magnetometer)</param>
+      <param name="magnetometer_rate">$(arg magnetometer_rate)</param>
+
+      <!-- Sensor Covariances -->
+      <param name="orientation_covariance_unreliable">$(arg orientation_covariance_unreliable)</param>
+      <param name="orientation_covariance_low">$(arg orientation_covariance_low)</param>
+      <param name="orientation_covariance_medium">$(arg orientation_covariance_medium)</param>
+      <param name="orientation_covariance_high">$(arg orientation_covariance_high)</param>
+
+      <param name="angular_velocity_covariance_unreliable">$(arg angular_velocity_covariance_unreliable)</param>
+      <param name="angular_velocity_covariance_low">$(arg angular_velocity_covariance_low)</param>
+      <param name="angular_velocity_covariance_medium">$(arg angular_velocity_covariance_medium)</param>
+      <param name="angular_velocity_covariance_high">$(arg angular_velocity_covariance_high)</param>
+
+      <param name="linear_acceleration_covariance_unreliable">$(arg linear_acceleration_covariance_unreliable)</param>
+      <param name="linear_acceleration_covariance_low">$(arg linear_acceleration_covariance_low)</param>
+      <param name="linear_acceleration_covariance_medium">$(arg linear_acceleration_covariance_medium)</param>
+      <param name="linear_acceleration_covariance_high">$(arg linear_acceleration_covariance_high)</param>
+
+      <param name="magnetometer_covariance_unreliable">$(arg magnetometer_covariance_unreliable)</param>
+      <param name="magnetometer_covariance_low">$(arg magnetometer_covariance_low)</param>
+      <param name="magnetometer_covariance_medium">$(arg magnetometer_covariance_medium)</param>
+      <param name="magnetometer_covariance_high">$(arg magnetometer_covariance_high)</param>
+
+      <param name="enable_mock_mode">$(arg enable_mock_mode)</param>   <!-- Simulation mode, no hardware required (default: false) -->
+    </hardware>
+
+    <sensor name="bno08x">
+      <!-- Orientation (quaternion, unit norm) -->
+      <state_interface name="orientation.x"/>
+      <state_interface name="orientation.y"/>
+      <state_interface name="orientation.z"/>
+      <state_interface name="orientation.w"/>
+
+      <!-- Angular velocity (rad/s) -->
+      <state_interface name="angular_velocity.x"/>
+      <state_interface name="angular_velocity.y"/>
+      <state_interface name="angular_velocity.z"/>
+
+      <!-- Linear acceleration (m/s²), gravity-compensated -->
+      <state_interface name="linear_acceleration.x"/>
+      <state_interface name="linear_acceleration.y"/>
+      <state_interface name="linear_acceleration.z"/>
+
+      <!-- Covarience's -->
+      <state_interface name="orientation_covariance"/>
+      <state_interface name="angular_velocity_covariance"/>
+      <state_interface name="linear_acceleration_covariance"/>
+    </sensor>
+  </ros2_control>
+
+</robot>

@@ -1,0 +1,14 @@
+repositories:
+  bno08x_sh2_libraries:
+    type: git
+    url: https://github.com/rbscr/bno08x_sh2_libraries.git
+    version: main
+    # provides the libraries 'bno08x' and 'sh2'
+  imu_sensor_covariance_broadcaster:
+    type: git
+    url: https://github.com/rbscr/imu_sensor_covariance_broadcaster.git
+    version: main
+  magnetometer_covariance_broadcaster:
+    type: git
+    url: https://github.com/rbscr/magnetometer_covariance_broadcaster.git
+    version: main

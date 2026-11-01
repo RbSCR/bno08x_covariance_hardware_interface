@@ -1,0 +1,35 @@
+controller_manager:
+  ros__parameters:
+    update_rate: 100  # Hz - Control loop frequency
+
+    # IMU Sensor Covariance Broadcaster - Publishes sensor_msgs/Imu to /imu_sensor_covariance_broadcaster/imu
+    imu_sensor_covariance_broadcaster:
+      type: imu_sensor_covariance_broadcaster/IMUSensorCovarianceBroadcaster
+
+    # State Interfaces Broadcaster - Publishes the state interfaces
+    state_interfaces_broadcaster:
+      type: state_interfaces_broadcaster/StateInterfacesBroadcaster
+
+# IMU Sensor Covariance Broadcaster configuration
+# Reads orientation, angular_velocity and linear_acceleration state interfaces
+# and publishes sensor_msgs/Imu to /imu_sensor_broadcaster/imu at 100 Hz.
+imu_sensor_covariance_broadcaster:
+  ros__parameters:
+    sensor_name: bno08x       # Must match the <sensor name="..."> in the URDF ros2_control block
+    frame_id: imu_frame       # TF frame for the published Imu messages
+
+    # Software rotation applied on top of the hardware axis_remap (Z-Y'-X'' / extrinsic RPY).
+    # Use only for fine angular offsets that cannot be handled by axis_remap P0-P7.
+    # Defaults to 0.0 (no rotation). Uncomment and set values to enable.
+    # rotation_offset:
+    #   roll:  0.0  # radians
+    #   pitch: 0.0  # radians
+    #   yaw:   0.0  # radians
+
+# State Interfaces Broadcaster configuration
+# Publishes the state interfaces mentioned in the ros-parameters below
+state_interfaces_broadcaster:
+  ros__parameters:
+    interfaces: ["bno08x/orientation_covariance",
+                 "bno08x/angular_velocity_covariance",
+                 "bno08x/linear_acceleration_covariance"]
