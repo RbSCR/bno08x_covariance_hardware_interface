@@ -4,14 +4,14 @@
   <!-- copied (and adapted) from bno055_hardware_interface (github.com/adityakamath) -->
 
   <!-- Arguments -->
-  <xacro:arg name="i2c_bus"              default="1"/>
-  <xacro:arg name="i2c_addr"             default="4A"/>    <!-- hex, no 0x prefix: 4A = 0x4A -->
-  <xacro:arg name="axis_remap"           default="East-North-Up"/>  <!-- See BNO08X datasheet Table 4-3  page 41 -->
-  <xacro:arg name="imu_rate"             default="100"/>   <!-- See BNO08X datasheet Figure 6-16 page 50-->
-  <xacro:arg name="enable_magnetometer"  default="false"/>
-  <xacro:arg name="magnetometer_rate"    default="100"/>   <!-- See BNO08X datasheet Figure 6-16 page 50-->
-  <xacro:arg name="enable_mock_mode"     default="false"/>
-  <xacro:arg name="enable_mock_mode"     default="false"/>
+  <xacro:arg name="i2c_bus"                     default="1"/>
+  <xacro:arg name="i2c_addr"                    default="4A"/>    <!-- hex, no 0x prefix: 4A = 0x4A -->
+  <xacro:arg name="axis_remap"                  default="East-North-Up"/>  <!-- See BNO08X datasheet Table 4-3  page 41 -->
+  <xacro:arg name="imu_rate"                    default="100"/>   <!-- See BNO08X datasheet Figure 6-16 page 50-->
+  <xacro:arg name="enable_magnetometer"         default="false"/>
+  <xacro:arg name="magnetometer_rate"           default="100"/>   <!-- See BNO08X datasheet Figure 6-16 page 50-->
+  <xacro:arg name="enable_dynamic_calibration"  default="false"/>
+  <xacro:arg name="enable_mock_mode"            default="false"/>
 
   <xacro:arg name="orientation_covariance_unreliable" default="0.0375"/>
   <xacro:arg name="orientation_covariance_low"        default="0.0075"/>
@@ -90,6 +90,7 @@
       <param name="magnetometer_covariance_medium">$(arg magnetometer_covariance_medium)</param>
       <param name="magnetometer_covariance_high">$(arg magnetometer_covariance_high)</param>
 
+      <param name="enable_dynamic_calibration">$(arg enable_dynamic_calibration)</param>
       <param name="enable_mock_mode">$(arg enable_mock_mode)</param>   <!-- Simulation mode, no hardware required (default: false) -->
     </hardware>
 
