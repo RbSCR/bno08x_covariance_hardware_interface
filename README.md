@@ -16,6 +16,7 @@
     - [Launch files](#launch-files)
       - [bno08x\_hal\_covariance](#bno08x_hal_covariance)
       - [bno08x\_hal\_covariance\_magnetometer](#bno08x_hal_covariance_magnetometer)
+      - [bno08x\_hal\_covariance\_magnetometer\_dynamic](#bno08x_hal_covariance_magnetometer_dynamic)
       - [bno08x\_hal\_covariance\_fixedhwparams](#bno08x_hal_covariance_fixedhwparams)
     - [Launch parameters](#launch-parameters)
   - [Installation](#installation)
@@ -103,38 +104,58 @@ The broadcasters `imu_sensor_covariance_broadcaster` and `magnetometer_covarianc
 
 ### Launch files
 
-This package has 3 (example) launch-files:
+This package has 4 (example) launch-files:
 
 - `bno08x_hal_covariance.launch.py`
 - `bno08x_hal_covariance_magnetometer.launch.py`
+- `bno08x_hal_covariance_magnetometer_dynamic.launch.py`
 - `bno08x_hal_covariance_fixedhwparams.launch.py`
 
 #### bno08x_hal_covariance
 
 This file launches the BNO08x with only the IMU enabled.
+The dynamic_calibration is default disabled.
+
 The related urdf-file is `bno08x_hal.urdf.xacro` and the related controller-config-file
 is `imu_hal_covariance_broadcaster.yaml`.
 
 The urdf- and config-file are not configured for the magnetometer.
 The urdf-file contains defaults for the hardware parameters, which can be overruled by the
 parameters in the launch-file.
-The IMU broadcaster is the "new" (non standard ROIS2 Control) `imu_sensor_covariance_broadcaster`.
+The IMU broadcaster is the "new" (non standard ROS2 Control) `imu_sensor_covariance_broadcaster`.
 
 #### bno08x_hal_covariance_magnetometer
 
 This file launches the BNO08x with the IMU and the magnetometer enabled.
-The related urdf-file is `bno08x_hal_agnetometer.urdf.xacro` and the related controller-config-file
+The dynamic_calibration is default disabled.
+
+The related urdf-file is `bno08x_hal_magnetometer.urdf.xacro` and the related controller-config-file
 is `imu_hal_covariance_magnetometer_broadcaster.yaml`.
 
 The urdf- and config-file are configured for the magnetometer.
 The urdf-file contains defaults for the hardware parameters, which can be overruled by the
 parameters in the launch-file.
 The IMU broadcaster is the "new" `imu_sensor_covariance_broadcaster`, the magnetometer
-broadcaster is the "new" (non standard ROIS2 Control) `magnetometer_covariance_broadcaster`.
+broadcaster is the "new" (non standard ROS2 Control) `magnetometer_covariance_broadcaster`.
+
+#### bno08x_hal_covariance_magnetometer_dynamic
+
+This file launches the BNO08x with the IMU and the magnetometer enabled.
+The dynamic_calibration is default enabled.
+The related urdf-file is `bno08x_hal_magnetometer_dynamic.urdf.xacro` and the related controller-config-file
+is `imu_hal_covariance_magnetometer_broadcaster.yaml`.
+
+The urdf- and config-file are configured for the magnetometer.
+The urdf-file contains defaults for the hardware parameters, which can be overruled by the
+parameters in the launch-file.
+The IMU broadcaster is the "new" `imu_sensor_covariance_broadcaster`, the magnetometer
+broadcaster is the "new" (non standard ROS2 Control) `magnetometer_covariance_broadcaster`.
 
 #### bno08x_hal_covariance_fixedhwparams
 
 This file launches the BNO08x with only the IMU enabled.
+The dynamic_calibration is default disabled.
+
 The related urdf-file is `bno08x_hal_fixedhwparams.urdf.xacro` and the related controller-config-file
 is `imu_hal_covariance_broadcaster.yaml`.
 
@@ -144,7 +165,7 @@ been removed from the launch-file.
 
 This launch-file, urdf-file and controller-config-file can be used as a starting point for an
 actual robot.
-The IMU broadcaster is the "new" (non standard ROIS2 Control) `imu_sensor_covariance_broadcaster`.
+The IMU broadcaster is the "new" (non standard ROS2 Control) `imu_sensor_covariance_broadcaster`.
 
 Note: because this launch-file and urdf-file are also used in a test, the hardware
 parameter `enable_moch_mode` does not have a 'fixed' value in the urdf-file, but is still used as
