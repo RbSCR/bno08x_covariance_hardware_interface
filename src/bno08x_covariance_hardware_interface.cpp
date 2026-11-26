@@ -334,7 +334,7 @@ hardware_interface::CallbackReturn BNO08XCovarianceHardwareInterface::on_init(
   }
 
   // enable_dynamic_calibration (default: false)
-  enable_dynamic_calibration_ = parse_bool_param("enable_mock_mode", false);
+  enable_dynamic_calibration_ = parse_bool_param("enable_dynamic_calibration", false);
 
   // enable_mock_mode (default: false)
   enable_mock_ = parse_bool_param("enable_mock_mode", false);
@@ -382,8 +382,8 @@ hardware_interface::CallbackReturn BNO08XCovarianceHardwareInterface::on_init(
 
   RCLCPP_INFO(
     logger_,
-    "Initialized: i2c_bus=%d i2c_addr=0x%02X axis_remap=%s imu_rate=%d dynamic_calibration=%s "
-    "mock_enabled=%s",
+    "Initialized: i2c_bus=%d i2c_addr=0x%02X axis_remap=%s imu_rate=%d "
+    "dynamic_calibration_enabled=%s mock_enabled=%s",
     i2c_bus_, i2c_addr_, axis_remap_.c_str(), imu_rate_,
     enable_dynamic_calibration_ ? "true" : "false", enable_mock_ ? "true" : "false");
   RCLCPP_INFO(
