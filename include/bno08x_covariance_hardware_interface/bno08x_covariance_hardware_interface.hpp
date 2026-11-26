@@ -258,6 +258,7 @@ private:
   bool enable_magnetometer_{false};
   int magnetometer_rate_{100};  // report frequency in Hz.
   int imu_rate_{100};           // report frequency in Hz.
+  bool enable_dynamic_calibration_{false};
   bool enable_mock_{false};
 
   // ROS Timer

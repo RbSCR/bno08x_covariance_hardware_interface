@@ -3,6 +3,7 @@
 
 
   <!-- Argument -->
+  <xacro:arg name="enable_dynamic_calibration" default="false"/>
   <xacro:arg name="enable_mock_mode" default="false"/>
   <!-- Note: this argument is needed here because this urdf is also used in a test. -->
   <!-- In a 'real' urdf this argument can be deleted, and the related parameter can have a 'fixed' value/ -->
@@ -58,6 +59,8 @@
       <param name="linear_acceleration_covariance_low">1.0000</param>
       <param name="linear_acceleration_covariance_medium">0.2000</param>
       <param name="linear_acceleration_covariance_high">0.0400</param>
+
+      <param name="enable_dynamic_calibration">$(arg enable_dynamic_calibration)</param>
 
       <param name="enable_mock_mode">$(arg enable_mock_mode)</param>      <!-- Simulation mode, no hardware required (default: false) -->
     </hardware>

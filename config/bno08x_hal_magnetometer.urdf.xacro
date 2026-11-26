@@ -4,17 +4,19 @@
   <!-- copied (and adapted) from bno055_hardware_interface (github.com/adityakamath) -->
 
   <!-- Arguments -->
-  <xacro:arg name="i2c_bus"             default="1"/>
-  <xacro:arg name="i2c_addr"            default="4A"/>    <!-- hex, no 0x prefix: 4A = 0x4A -->
-  <xacro:arg name="axis_remap"          default="East-North-Up"/>  <!-- See BNO08X datasheet Figure 4-3  page 41 -->
-  <xacro:arg name="imu_rate"            default="100"/>   <!-- See BNO08X datasheet Figure 6-16 page 50-->
-  <xacro:arg name="enable_magnetometer" default="true"/>
-  <xacro:arg name="magnetometer_rate"   default="100"/>   <!-- See BNO08X datasheet Figure 6-16 page 50-->
-  <xacro:arg name="enable_mock_mode"    default="false"/>
-  <xacro:arg name="orientation_covariance_unreliable"   default="0.0375"/>
-  <xacro:arg name="orientation_covariance_low"          default="0.0075"/>
-  <xacro:arg name="orientation_covariance_medium"       default="0.0015"/>
-  <xacro:arg name="orientation_covariance_high"         default="0.00030"/>
+  <xacro:arg name="i2c_bus"                     default="1"/>
+  <xacro:arg name="i2c_addr"                    default="4A"/>    <!-- hex, no 0x prefix: 4A = 0x4A -->
+  <xacro:arg name="axis_remap"                  default="East-North-Up"/>  <!-- See BNO08X datasheet Figure 4-3  page 41 -->
+  <xacro:arg name="imu_rate"                    default="100"/>   <!-- See BNO08X datasheet Figure 6-16 page 50-->
+  <xacro:arg name="enable_magnetometer"         default="true"/>
+  <xacro:arg name="magnetometer_rate"           default="100"/>   <!-- See BNO08X datasheet Figure 6-16 page 50-->
+  <xacro:arg name="enable_dynamic_calibration"  default="false"/>
+  <xacro:arg name="enable_mock_mode"            default="false"/>
+
+  <xacro:arg name="orientation_covariance_unreliable" default="0.0375"/>
+  <xacro:arg name="orientation_covariance_low"        default="0.0075"/>
+  <xacro:arg name="orientation_covariance_medium"     default="0.0015"/>
+  <xacro:arg name="orientation_covariance_high"       default="0.00030"/>
 
   <xacro:arg name="angular_velocity_covariance_unreliable" default="0.0625"/>
   <xacro:arg name="angular_velocity_covariance_low"        default="0.0125"/>
@@ -66,6 +68,7 @@
       <param name="imu_rate">$(arg imu_rate)</param>
       <param name="enable_magnetometer">$(arg enable_magnetometer)</param>
       <param name="magnetometer_rate">$(arg magnetometer_rate)</param>
+      <param name="enable_dynamic_calibration">$(arg enable_dynamic_calibration)</param>
 
       <!-- Sensor Covariances -->
       <param name="orientation_covariance_unreliable">$(arg orientation_covariance_unreliable)</param>

@@ -18,6 +18,7 @@ Example (other) usage:
     <base-usage> axis_remap:=North-West-Up
     <base-usage> imu_rate:=150
     <base-usage> enable_magnetometer:=true
+    <base-usage> enable_dynamic_calibration:=true
     <base-usage> enable_mock_mode:=true
     <base-usage> publish_tf:=false
     <base-usage> broadcast_magnetometer:=true
@@ -154,6 +155,11 @@ def generate_launch_description():
             description='Magnetometer covariance when magnetometer status is high'
         ),
         DeclareLaunchArgument(
+            'enable_dynamic_calibration',
+            default_value='false',
+            description='Enable dynamic calibration for the (enabled) sensors'
+        ),
+        DeclareLaunchArgument(
             'enable_mock_mode',
             default_value='false',
             description='Use mock/simulation mode (no hardware required)'
@@ -200,6 +206,7 @@ def generate_launch_description():
     magnetometer_covariance_medium = LaunchConfiguration('magnetometer_covariance_medium')
     magnetometer_covariance_high = LaunchConfiguration('magnetometer_covariance_high')
 
+    enable_dynamic_calibration = LaunchConfiguration('enable_dynamic_calibration')
     enable_mock = LaunchConfiguration('enable_mock_mode')
     publish_tf = LaunchConfiguration('publish_tf')
 
@@ -255,6 +262,8 @@ def generate_launch_description():
             'magnetometer_covariance_medium:=', magnetometer_covariance_medium,
             ' ',
             'magnetometer_covariance_high:=', magnetometer_covariance_high,
+            ' ',
+            'enable_dynamic_calibration:=', enable_dynamic_calibration,
             ' ',
             'enable_mock_mode:=', enable_mock,
         ]

@@ -95,6 +95,10 @@ TEST(InitTest, ValidBasicParams) {
   magnetometer_rate_nonstandard.hardware_parameters["magnetometer_rate"] = "55";
   EXPECT_EQ(init(magnetometer_rate_nonstandard), CallbackReturn::SUCCESS);
 
+  auto dynamic_calibration_enabled = make_valid_imu_info();
+  dynamic_calibration_enabled.hardware_parameters["enable_dynamic_calibration"] = "true";
+  EXPECT_EQ(init(dynamic_calibration_enabled), CallbackReturn::SUCCESS);
+
   auto mock_enabled = make_valid_imu_info();
   mock_enabled.hardware_parameters["enable_mock_mode"] = "true";
   EXPECT_EQ(init(mock_enabled), CallbackReturn::SUCCESS);

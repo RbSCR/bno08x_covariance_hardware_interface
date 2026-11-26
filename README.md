@@ -41,6 +41,7 @@ The BNO08x family (BNO085/BNO086) is a compact System in Package (SiP) with inte
 - **Mock Mode**: Run the complete `ros2_control` lifecycle and publish zero/identity values without any hardware
 - **3 Magnetometer State Interfaces** (optional): magnetic field {x, y, z} (Tesla) — fully compatible the ROS2 Control `magnetometer_broadcaster`. In mock mode publish zero values.
 - **1 Magnetometer covariance State Interface** (optional): covariance value for magnetometer - compatible with `magnetometer_covariance_broadcaster`
+- **Dynamic sensor calibration** (optional): dynamic calibration for the enabled sensors
 - **TF Broadcasting** (optional): `imu_tf_broadcaster` relay node republishes the orientation quaternion as a dynamic `world → base_link` TF transform
 
 The broadcasters `imu_sensor_covariance_broadcaster` and `magnetometer_covariance_broadcaster` are variants of the ROS2 Control standard broadcasters for an IMU sensor and a magnetometer. These variants use the covariance values in the state interface to determine the covariance (matrix diagonal) in the broadcasted messages.
@@ -73,6 +74,7 @@ The broadcasters `imu_sensor_covariance_broadcaster` and `magnetometer_covarianc
 | `magnetometer_covariance_low` | `double` | Magnetometer covariance when magnetometer status is low |
 | `magnetometer_covariance_medium` |`double` | Magnetometer covariance when magnetometer status is medium |
 | `magnetometer_covariance_high` | `double` | Magnetometer covariance when magnetometer status is high |
+| `enable_dynamic_calibration` | `bool` | Enable dynamic calibration of the (enabled) sensors |
 | `enable_mock_mode` | `bool` | Skip I2C initialisation; publishes identity quaternion and zero velocity/acceleration/magnetic_field |
 
 ### State interfaces

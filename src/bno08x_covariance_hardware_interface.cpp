@@ -91,9 +91,8 @@ hardware_interface::CallbackReturn BNO08XCovarianceHardwareInterface::on_init(
   RCLCPP_INFO(logger_, "Initializing BNO08X covariance HAL: %s", info_.name.c_str());
 
   // i2c_bus (default: 1)
-  if (
-    const auto it = info_.hardware_parameters.find("i2c_bus");
-    it != info_.hardware_parameters.end()) {
+  if (const auto it = info_.hardware_parameters.find("i2c_bus");
+      it != info_.hardware_parameters.end()) {
     try {
       i2c_bus_ = std::stoi(it->second);
     } catch (const std::exception & e) {
@@ -103,9 +102,8 @@ hardware_interface::CallbackReturn BNO08XCovarianceHardwareInterface::on_init(
   }
 
   // i2c_addr (default: 0x4A   alternative: 0x4B)
-  if (
-    const auto it = info_.hardware_parameters.find("i2c_addr");
-    it != info_.hardware_parameters.end()) {
+  if (const auto it = info_.hardware_parameters.find("i2c_addr");
+      it != info_.hardware_parameters.end()) {
     try {
       i2c_addr_ = static_cast<uint8_t>(std::stoul(it->second, nullptr, 16));
     } catch (const std::exception & e) {
@@ -115,9 +113,8 @@ hardware_interface::CallbackReturn BNO08XCovarianceHardwareInterface::on_init(
   }
 
   // axis_remap (default: "East-North-Up")
-  if (
-    const auto it = info_.hardware_parameters.find("axis_remap");
-    it != info_.hardware_parameters.end()) {
+  if (const auto it = info_.hardware_parameters.find("axis_remap");
+      it != info_.hardware_parameters.end()) {
     axis_remap_ = it->second;
   } else {
     RCLCPP_ERROR(logger_, "No axis_remap");
@@ -135,9 +132,8 @@ hardware_interface::CallbackReturn BNO08XCovarianceHardwareInterface::on_init(
   }
 
   // imu_rate (default: 100 Hz)
-  if (
-    const auto it = info_.hardware_parameters.find("imu_rate");
-    it != info_.hardware_parameters.end()) {
+  if (const auto it = info_.hardware_parameters.find("imu_rate");
+      it != info_.hardware_parameters.end()) {
     try {
       imu_rate_ = static_cast<int>(std::stoul(it->second, nullptr, 10));
     } catch (const std::exception & e) {
@@ -156,9 +152,8 @@ hardware_interface::CallbackReturn BNO08XCovarianceHardwareInterface::on_init(
   }
 
   // orientation covariance
-  if (
-    const auto it = info_.hardware_parameters.find("orientation_covariance_unreliable");
-    it != info_.hardware_parameters.end()) {
+  if (const auto it = info_.hardware_parameters.find("orientation_covariance_unreliable");
+      it != info_.hardware_parameters.end()) {
     try {
       accuracy_orientation_covariance_[0] = std::stod(it->second);
     } catch (const std::exception & e) {
@@ -166,9 +161,8 @@ hardware_interface::CallbackReturn BNO08XCovarianceHardwareInterface::on_init(
       return hardware_interface::CallbackReturn::ERROR;
     }
   }
-  if (
-    const auto it = info_.hardware_parameters.find("orientation_covariance_low");
-    it != info_.hardware_parameters.end()) {
+  if (const auto it = info_.hardware_parameters.find("orientation_covariance_low");
+      it != info_.hardware_parameters.end()) {
     try {
       accuracy_orientation_covariance_[1] = std::stod(it->second);
     } catch (const std::exception & e) {
@@ -176,9 +170,8 @@ hardware_interface::CallbackReturn BNO08XCovarianceHardwareInterface::on_init(
       return hardware_interface::CallbackReturn::ERROR;
     }
   }
-  if (
-    const auto it = info_.hardware_parameters.find("orientation_covariance_medium");
-    it != info_.hardware_parameters.end()) {
+  if (const auto it = info_.hardware_parameters.find("orientation_covariance_medium");
+      it != info_.hardware_parameters.end()) {
     try {
       accuracy_orientation_covariance_[2] = std::stod(it->second);
     } catch (const std::exception & e) {
@@ -186,9 +179,8 @@ hardware_interface::CallbackReturn BNO08XCovarianceHardwareInterface::on_init(
       return hardware_interface::CallbackReturn::ERROR;
     }
   }
-  if (
-    const auto it = info_.hardware_parameters.find("orientation_covariance_high");
-    it != info_.hardware_parameters.end()) {
+  if (const auto it = info_.hardware_parameters.find("orientation_covariance_high");
+      it != info_.hardware_parameters.end()) {
     try {
       accuracy_orientation_covariance_[3] = std::stod(it->second);
     } catch (const std::exception & e) {
@@ -198,9 +190,8 @@ hardware_interface::CallbackReturn BNO08XCovarianceHardwareInterface::on_init(
   }
 
   // angular velocity covariance
-  if (
-    const auto it = info_.hardware_parameters.find("angular_velocity_covariance_unreliable");
-    it != info_.hardware_parameters.end()) {
+  if (const auto it = info_.hardware_parameters.find("angular_velocity_covariance_unreliable");
+      it != info_.hardware_parameters.end()) {
     try {
       accuracy_angular_velocity_covariance_[0] = std::stod(it->second);
     } catch (const std::exception & e) {
@@ -208,9 +199,8 @@ hardware_interface::CallbackReturn BNO08XCovarianceHardwareInterface::on_init(
       return hardware_interface::CallbackReturn::ERROR;
     }
   }
-  if (
-    const auto it = info_.hardware_parameters.find("angular_velocity_covariance_low");
-    it != info_.hardware_parameters.end()) {
+  if (const auto it = info_.hardware_parameters.find("angular_velocity_covariance_low");
+      it != info_.hardware_parameters.end()) {
     try {
       accuracy_angular_velocity_covariance_[1] = std::stod(it->second);
     } catch (const std::exception & e) {
@@ -218,9 +208,8 @@ hardware_interface::CallbackReturn BNO08XCovarianceHardwareInterface::on_init(
       return hardware_interface::CallbackReturn::ERROR;
     }
   }
-  if (
-    const auto it = info_.hardware_parameters.find("angular_velocity_covariance_medium");
-    it != info_.hardware_parameters.end()) {
+  if (const auto it = info_.hardware_parameters.find("angular_velocity_covariance_medium");
+      it != info_.hardware_parameters.end()) {
     try {
       accuracy_angular_velocity_covariance_[2] = std::stod(it->second);
     } catch (const std::exception & e) {
@@ -228,9 +217,8 @@ hardware_interface::CallbackReturn BNO08XCovarianceHardwareInterface::on_init(
       return hardware_interface::CallbackReturn::ERROR;
     }
   }
-  if (
-    const auto it = info_.hardware_parameters.find("angular_velocity_covariance_high");
-    it != info_.hardware_parameters.end()) {
+  if (const auto it = info_.hardware_parameters.find("angular_velocity_covariance_high");
+      it != info_.hardware_parameters.end()) {
     try {
       accuracy_angular_velocity_covariance_[3] = std::stod(it->second);
     } catch (const std::exception & e) {
@@ -240,9 +228,8 @@ hardware_interface::CallbackReturn BNO08XCovarianceHardwareInterface::on_init(
   }
 
   // linear acceleration covariance
-  if (
-    const auto it = info_.hardware_parameters.find("linear_acceleration_covariance_unreliable");
-    it != info_.hardware_parameters.end()) {
+  if (const auto it = info_.hardware_parameters.find("linear_acceleration_covariance_unreliable");
+      it != info_.hardware_parameters.end()) {
     try {
       accuracy_linear_acceleration_covariance_[0] = std::stod(it->second);
     } catch (const std::exception & e) {
@@ -251,9 +238,8 @@ hardware_interface::CallbackReturn BNO08XCovarianceHardwareInterface::on_init(
       return hardware_interface::CallbackReturn::ERROR;
     }
   }
-  if (
-    const auto it = info_.hardware_parameters.find("linear_acceleration_covariance_low");
-    it != info_.hardware_parameters.end()) {
+  if (const auto it = info_.hardware_parameters.find("linear_acceleration_covariance_low");
+      it != info_.hardware_parameters.end()) {
     try {
       accuracy_linear_acceleration_covariance_[1] = std::stod(it->second);
     } catch (const std::exception & e) {
@@ -261,9 +247,8 @@ hardware_interface::CallbackReturn BNO08XCovarianceHardwareInterface::on_init(
       return hardware_interface::CallbackReturn::ERROR;
     }
   }
-  if (
-    const auto it = info_.hardware_parameters.find("linear_acceleration_covariance_medium");
-    it != info_.hardware_parameters.end()) {
+  if (const auto it = info_.hardware_parameters.find("linear_acceleration_covariance_medium");
+      it != info_.hardware_parameters.end()) {
     try {
       accuracy_linear_acceleration_covariance_[2] = std::stod(it->second);
     } catch (const std::exception & e) {
@@ -271,9 +256,8 @@ hardware_interface::CallbackReturn BNO08XCovarianceHardwareInterface::on_init(
       return hardware_interface::CallbackReturn::ERROR;
     }
   }
-  if (
-    const auto it = info_.hardware_parameters.find("linear_acceleration_covariance_high");
-    it != info_.hardware_parameters.end()) {
+  if (const auto it = info_.hardware_parameters.find("linear_acceleration_covariance_high");
+      it != info_.hardware_parameters.end()) {
     try {
       accuracy_linear_acceleration_covariance_[3] = std::stod(it->second);
     } catch (const std::exception & e) {
@@ -287,9 +271,8 @@ hardware_interface::CallbackReturn BNO08XCovarianceHardwareInterface::on_init(
 
   if (enable_magnetometer_) {
     // magnetometer_rate (default: 100 Hz)
-    if (
-      const auto it = info_.hardware_parameters.find("magnetometer_rate");
-      it != info_.hardware_parameters.end()) {
+    if (const auto it = info_.hardware_parameters.find("magnetometer_rate");
+        it != info_.hardware_parameters.end()) {
       try {
         magnetometer_rate_ = static_cast<int>(std::stoul(it->second, nullptr, 10));
       } catch (const std::exception & e) {
@@ -312,9 +295,8 @@ hardware_interface::CallbackReturn BNO08XCovarianceHardwareInterface::on_init(
     }
 
     // magnetometer covariance
-    if (
-      const auto it = info_.hardware_parameters.find("magnetometer_covariance_unreliable");
-      it != info_.hardware_parameters.end()) {
+    if (const auto it = info_.hardware_parameters.find("magnetometer_covariance_unreliable");
+        it != info_.hardware_parameters.end()) {
       try {
         accuracy_magnetometer_covariance_[0] = std::stod(it->second);
       } catch (const std::exception & e) {
@@ -322,9 +304,8 @@ hardware_interface::CallbackReturn BNO08XCovarianceHardwareInterface::on_init(
         return hardware_interface::CallbackReturn::ERROR;
       }
     }
-    if (
-      const auto it = info_.hardware_parameters.find("magnetometer_covariance_low");
-      it != info_.hardware_parameters.end()) {
+    if (const auto it = info_.hardware_parameters.find("magnetometer_covariance_low");
+        it != info_.hardware_parameters.end()) {
       try {
         accuracy_magnetometer_covariance_[1] = std::stod(it->second);
       } catch (const std::exception & e) {
@@ -332,9 +313,8 @@ hardware_interface::CallbackReturn BNO08XCovarianceHardwareInterface::on_init(
         return hardware_interface::CallbackReturn::ERROR;
       }
     }
-    if (
-      const auto it = info_.hardware_parameters.find("magnetometer_covariance_medium");
-      it != info_.hardware_parameters.end()) {
+    if (const auto it = info_.hardware_parameters.find("magnetometer_covariance_medium");
+        it != info_.hardware_parameters.end()) {
       try {
         accuracy_magnetometer_covariance_[2] = std::stod(it->second);
       } catch (const std::exception & e) {
@@ -342,9 +322,8 @@ hardware_interface::CallbackReturn BNO08XCovarianceHardwareInterface::on_init(
         return hardware_interface::CallbackReturn::ERROR;
       }
     }
-    if (
-      const auto it = info_.hardware_parameters.find("magnetometer_covariance_high");
-      it != info_.hardware_parameters.end()) {
+    if (const auto it = info_.hardware_parameters.find("magnetometer_covariance_high");
+        it != info_.hardware_parameters.end()) {
       try {
         accuracy_magnetometer_covariance_[3] = std::stod(it->second);
       } catch (const std::exception & e) {
@@ -353,6 +332,9 @@ hardware_interface::CallbackReturn BNO08XCovarianceHardwareInterface::on_init(
       }
     }
   }
+
+  // enable_dynamic_calibration (default: false)
+  enable_dynamic_calibration_ = parse_bool_param("enable_mock_mode", false);
 
   // enable_mock_mode (default: false)
   enable_mock_ = parse_bool_param("enable_mock_mode", false);
@@ -399,8 +381,11 @@ hardware_interface::CallbackReturn BNO08XCovarianceHardwareInterface::on_init(
   }
 
   RCLCPP_INFO(
-    logger_, "Initialized: i2c_bus=%d i2c_addr=0x%02X axis_remap=%s imu_rate=%d mock_enabled=%s",
-    i2c_bus_, i2c_addr_, axis_remap_.c_str(), imu_rate_, enable_mock_ ? "true" : "false");
+    logger_,
+    "Initialized: i2c_bus=%d i2c_addr=0x%02X axis_remap=%s imu_rate=%d dynamic_calibration=%s "
+    "mock_enabled=%s",
+    i2c_bus_, i2c_addr_, axis_remap_.c_str(), imu_rate_,
+    enable_dynamic_calibration_ ? "true" : "false", enable_mock_ ? "true" : "false");
   RCLCPP_INFO(
     logger_, "  orientation_covariance unreliable=%.12f low=%.12f medium=%.12f high=%.12f",
     accuracy_orientation_covariance_[0], accuracy_orientation_covariance_[1],
@@ -587,6 +572,19 @@ void BNO08XCovarianceHardwareInterface::init_sensor() {
           SH2_MAGNETIC_FIELD_CALIBRATED, 1000000 / magnetometer_rate_ /* Hz to us */)) {
       RCLCPP_ERROR(logger_, "Failed to enable magnetometer. Continuing without magnetometer.");
       enable_magnetometer_ = false;
+    }
+  }
+
+  if (enable_dynamic_calibration_) {
+    RCLCPP_INFO(logger_, "Enabling dynamic calibration");
+    uint8_t dynamic_calibration_config = 3;  // always Accel (bitmask:0x01) and Gyro (0x02)
+    if (enable_magnetometer_) {
+      dynamic_calibration_config += 4;  // Magnetometer (0x04)
+    }
+    if (!bno08x_->setCalibrationConfig(dynamic_calibration_config)) {
+      RCLCPP_ERROR(
+        logger_, "Failed to enable dynamic calibration. Continuing without dynamic calibration.");
+      enable_dynamic_calibration_ = false;
     }
   }
 
