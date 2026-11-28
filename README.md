@@ -1,7 +1,7 @@
 # bno08x_covariance_hardware_interface
 
 ![Project Status](https://img.shields.io/badge/Status-Work%20in%20progress-orange)
-![ROS 2](https://img.shields.io/badge/ROS%202-Jazzy%20|%20Kilted%20(Ubuntu%2024.04)-blue?style=flat&logo=ros&logoSize=auto)
+![ROS 2](https://img.shields.io/badge/ROS%202-Jazzy%20(Ubuntu%2024.04)-blue?style=flat&logo=ros&logoSize=auto)
 ![C++](https://img.shields.io/badge/C++-17-blue?style=flat&logo=cplusplus&logoColor=white)
 ![License](https://img.shields.io/github/license/rbscr/bno08x_rand?label=License)
 [![ROS 2 Builder](https://github.com/RbSCR/bno08x_covariance_hardware_interface/actions/workflows/ros2-build.yml/badge.svg)](https://github.com/RbSCR/bno08x_covariance_hardware_interface/actions/workflows/ros2-build.yml)
@@ -33,6 +33,13 @@ The BNO08x family (BNO085/BNO086) is a compact System in Package (SiP) with inte
 
 >[!NOTE]
 >This plugin only supports I2C.
+
+**⚠️ Status:**
+
+- Tested and validated on Raspberry Pi 5 running ROS 2 Jazzy/2026-11-16 (Ubuntu 24.04, aarch64) with real BNO085 hardware.
+- Work in progress
+
+Though Kilted is no longer supported, a previous version was tested and validated on Raspberry Pi 5 running ROS 2 Kilted/2026-08-21 (Ubuntu 24.04, aarch64) with real BNO085 hardware.
 
 ## Features
 
@@ -73,7 +80,7 @@ The broadcasters `imu_sensor_covariance_broadcaster` and `magnetometer_covarianc
 | `linear_acceleration_covariance_high` | `double` | Linear acceleration covariance when linear_acceleration-sensor status is high |
 | `magnetometer_covariance_unreliable` | `double` | Magnetometer covariance when magnetometer status is unreliable |
 | `magnetometer_covariance_low` | `double` | Magnetometer covariance when magnetometer status is low |
-| `magnetometer_covariance_medium` |`double` | Magnetometer covariance when magnetometer status is medium |
+| `magnetometer_covariance_medium` | `double` | Magnetometer covariance when magnetometer status is medium |
 | `magnetometer_covariance_high` | `double` | Magnetometer covariance when magnetometer status is high |
 | `enable_dynamic_calibration` | `bool` | Enable dynamic calibration of the (enabled) sensors |
 | `enable_mock_mode` | `bool` | Skip I2C initialisation; publishes identity quaternion and zero velocity/acceleration/magnetic_field |
